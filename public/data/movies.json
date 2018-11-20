@@ -1,0 +1,18 @@
+{
+    "movies": [{
+        "id": "82663b69-3961-46e3-8f67-dfd2ffba51a6",
+        "title": "The Godfather - part 1",
+        "img": "/img/v1.jpg",
+        "rating": 8.2
+    }, {
+        "id": "dd4f4de5-d333-4f28-913c-c9b3849688c0",
+        "title": "The Godfather - part 2",
+        "img": "/img/v2.jpg",
+        "rating": 7.6
+    }, {
+        "id": "4274bc68-cb2c-40cd-ab58-d7fa8a01c9eb",
+        "title": "The Graduate",
+        "img": "/img/1967-the-graduate-movie.jpg",
+        "rating": 9.1
+    }]
+}
