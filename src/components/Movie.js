@@ -8,7 +8,7 @@ const Movie = (props) => {
                     <img src={ props.img } alt={ props.title } />
                 </div>
                 <div className="content">
-                    <a className="header">{ props.title }</a>
+                    <a className="header" href="/">{ props.title }</a>
                     <div className="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                 </div>
                 <div className="extra content">
