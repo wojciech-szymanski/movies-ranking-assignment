@@ -1,6 +1,8 @@
 import React from 'react';
 
 const Movie = (props) => {
+    const rating = [1, 2, 3, 4, 5];
+
     return  (
         <div className="column">
             <div className="ui fluid card">
@@ -13,8 +15,14 @@ const Movie = (props) => {
                 </div>
                 <div className="extra content">
                     <span className="right floated star">
-                        <i className="star icon"></i>
-                        { props.rating } rating
+                        { 
+                            rating.map(score =>
+                                <i className="star icon" 
+                                    key={[props.id,score]}
+                                    onClick={() => props.updateRating(props.id, score)}></i>
+                            )
+                        }
+                        { Math.round(props.rating * 10 ) / 10 } rating
                     </span>
                 </div>
             </div>
