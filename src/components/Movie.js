@@ -19,7 +19,7 @@ const Movie = (props) => {
                             rating.map(score =>
                                 <i className="star icon" 
                                     key={[props.id,score]}
-                                    onClick={() => props.updateRating(props.id, score)}></i>
+                                    onClick={() => props.scoreAdded(props.id, score)}></i>
                             )
                         }
                         { Math.round(props.rating * 10 ) / 10 } rating

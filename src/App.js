@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import Movie from './components/Movie.js';
+import Movies from './containers/Movies.js';
 
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            movies: []
-        }
     }
 
     calculateRating = (movie, newScore) => (movie.totalVotes * movie.rating + newScore) / (movie.totalVotes + 1);
@@ -42,7 +39,7 @@ class App extends Component {
             .then(res => res.json())
             .then(data => {
                 if (data.movies) {
-                    this.setState({ 
+                    this.setState({
                         movies: data.movies.sort(this.sortByRatingDesc)
                     });
                 }
@@ -69,15 +66,7 @@ class App extends Component {
                     </div>
                 </header>
                 <main>
-                    <div className="ui three column grid">
-                        {
-                            this.state.movies.map((movie, idx) =>
-                                <Movie key={idx} 
-                                    updateRating={this.updateRating} 
-                                    {...movie} />
-                            )
-                        }
-                    </div>
+                    <Movies />
                 </main>
             </div>
         );
