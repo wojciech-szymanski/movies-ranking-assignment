@@ -21,7 +21,7 @@ export default (state = { list: [], randomizer: undefined }, action) => {
         case 'SCORE_ADDED':
             return {
                 ...state,
-                list: [...state]
+                list: [...state.list]
                     .map(movie => movie.id === action.id ? Object.assign({}, movie, {
                         rating: calculateRating(movie, action.newScore),
                         totalVotes: movie.totalVotes + 1
