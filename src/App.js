@@ -38,7 +38,7 @@ class App extends Component {
                 <main>
                     <div className="ui three column grid">
                         {
-                            this.props.movies && this.props.movies.map((movie, idx) =>
+                            this.props.movies.list.map((movie, idx) =>
                                 <Movie key={ idx }
                                     scoreAdded={ this.props.scoreAdded } 
                                     { ...movie } />
