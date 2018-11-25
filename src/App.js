@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import moviesLoaded from './actions/moviesLoaded';
-import randomizeRatings from './actions/randomizeRatings';
-import scoreAdded from './actions/scoreAdded';
-import Movie from './components/Movie.js';
 
-class Movies extends Component {
+import moviesLoaded from './actions/moviesLoaded';
+import scoreAdded from './actions/scoreAdded';
+
+import Movie from './components/Movie.js';
+import Randomizer from './components/Randomizer';
+
+class App extends Component {
     componentDidMount() {
         fetch('/data/movies.json')
             .then(res => res.json())
@@ -29,10 +31,7 @@ class Movies extends Component {
                             <h1>Movie list</h1>
                         </div>
                         <div className="column">
-                            <button className="positive ui button right floated" 
-                                onClick={ this.props.randomizeRatings }>
-                                Randomize ratings
-                            </button>
+                            <Randomizer />
                         </div>
                     </div>
                 </header>
@@ -57,9 +56,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-    scoreAdded,
     moviesLoaded,
-    randomizeRatings
+    scoreAdded
 }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(Movies);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -2,7 +2,7 @@ const calculateRating = (movie, newScore) => (movie.totalVotes * movie.rating + 
 const randomNumber1toN = n => Math.ceil(Math.random() * n);
 const sortByRatingDesc = (curr, next) => next.rating - curr.rating;
 
-export default (state = null, action) => {
+export default (state = [], action) => {
     switch (action.type) {
         case 'MOVIES_LOADED':
             return action.movies.sort(sortByRatingDesc);
