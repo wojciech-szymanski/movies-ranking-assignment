@@ -1,47 +1,18 @@
 import React, { Component } from 'react';
-import Movies from './containers/Movies.js';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import moviesLoaded from './actions/moviesLoaded';
+import randomizeRatings from './actions/randomizeRatings';
+import scoreAdded from './actions/scoreAdded';
+import Movie from './components/Movie.js';
 
-class App extends Component {
-    constructor(props) {
-        super(props);
-    }
-
-    calculateRating = (movie, newScore) => (movie.totalVotes * movie.rating + newScore) / (movie.totalVotes + 1);
-
-    randomizeRatings() {
-        this.setState({
-            movies: [...this.state.movies]
-                .map(movie => Object.assign({}, movie, { 
-                    rating: this.calculateRating(movie, this.randomNumber1toN(10)),
-                    totalVotes: movie.totalVotes + 1
-                }))
-                .sort(this.sortByRatingDesc)
-        });
-    }
-
-    randomNumber1toN = n => Math.ceil(Math.random() * n);
-
-    sortByRatingDesc = (curr, next) => next.rating - curr.rating;
-
-    updateRating = (id, newScore) => {
-        this.setState({
-            movies: [...this.state.movies]
-                .map(movie => movie.id === id ? Object.assign({}, movie, {
-                    rating: this.calculateRating(movie, newScore),
-                    totalVotes: movie.totalVotes + 1
-                }) : movie)
-                .sort(this.sortByRatingDesc)
-        });
-    }
-
+class Movies extends Component {
     componentDidMount() {
         fetch('/data/movies.json')
             .then(res => res.json())
             .then(data => {
                 if (data.movies) {
-                    this.setState({
-                        movies: data.movies.sort(this.sortByRatingDesc)
-                    });
+                    this.props.moviesLoaded(data.movies);
                 }
             })
             .catch(err => {
@@ -59,18 +30,36 @@ class App extends Component {
                         </div>
                         <div className="column">
                             <button className="positive ui button right floated" 
-                                onClick={ this.randomizeRatings.bind(this) }>
+                                onClick={ this.props.randomizeRatings }>
                                 Randomize ratings
                             </button>
                         </div>
                     </div>
                 </header>
                 <main>
-                    <Movies />
+                    <div className="ui three column grid">
+                        {
+                            this.props.movies && this.props.movies.map((movie, idx) =>
+                                <Movie key={ idx }
+                                    scoreAdded={ this.props.scoreAdded } 
+                                    { ...movie } />
+                            )
+                        }
+                    </div>
                 </main>
             </div>
         );
     }
 }
+ 
+const mapStateToProps = (state) => ({
+    movies: state.movies
+});
 
-export default App;
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+    scoreAdded,
+    moviesLoaded,
+    randomizeRatings
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Movies);
